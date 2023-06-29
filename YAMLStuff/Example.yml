@@ -1,0 +1,119 @@
+- name: "Give Hammer"
+  items:
+    - item: "Hammer"
+      quality: 3
+      stack: 1
+      use: false
+      hotbarSlot: 1
+  dropCurrent: false
+  price: 10
+  costPrefab: "FineWood"
+- name: "AzuMage"
+  items:
+    - item: "ArmorCarapaceChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorCarapaceLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "HelmetFenring"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "StaffFireball"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "Hammer"
+      quality: 3
+      stack: 1
+      use: false
+      hotbarSlot: 2
+    - item: "YggdrasilPorridge"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+    - item: "SeekerAspic"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+    - item: "Salad"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "All"
+      level: 100
+  dropCurrent: true
+  price: 50
+  costPrefab: "Etir"
+- name: "Potion Pack"
+  items:
+    - item: "MeadHealthMinor"
+      quality: 3
+      stack: 10
+      use: false
+      hotbarSlot: 0
+    - item: "MeadHealthMedium"
+      quality: 3
+      stack: 10
+      use: false
+      hotbarSlot: 0
+  dropCurrent: false
+  price: 50
+- name: "Testing Pack"
+  items:
+    - item: "SwordBronze"
+      quality: 3
+      stack: 1
+      use: false
+      hotbarSlot: 1
+  skills:
+    - skill: "Swords"
+      level: 16
+    - skill: "Run"
+      level: 100
+  dropCurrent: false
+  price: 100
+  costPrefab: "Bronze"
+- name: "Status Effect Test"
+  setEffect: "Potion_eitr_minor"
+  setEffectAsGP: true
+  price: 45
+- name: "Goblin Shaman Shield"
+  setEffect: "GoblinShaman_shield"
+  setEffectAsGP: false
+  price: 60
+- name: "Rested Buff level 1"
+  setEffect: "Rested"
+  price: 15
+- name: "Corpse Run Buff"
+  setEffect: "CorpseRun"
+  price: 15
+- name: "+10 To Skills"
+  skills:
+    - skill: "All"
+      level: 10
+  dropCurrent: false
+  price: 250
+- name: "+20 To Skills"
+  skills:
+    - skill: "All"
+      level: 20
+  dropCurrent: false
+  price: 500
+- name: "Max Out Skills"
+  skills:
+    - skill: "All"
+      level: 100
+  dropCurrent: false
+  price: 5000

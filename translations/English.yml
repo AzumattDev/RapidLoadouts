@@ -1,0 +1,5 @@
+# Ready to use english translation file for the plugin
+# (for more information on LocalizationManager, see the LocalizationManager documentation https://github.com/blaxxun-boop/LocalizationManager#example-project).
+azu_rl_buyItemSet: "Buy Item Set"
+azu_rl_equipSelected: "Equip the selected loadout"
+azu_rl_itemSets: "Item Sets"
