@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using BepInEx;
+using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -20,12 +21,12 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.0";
+        internal const string ModVersion = "1.0.1";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
         private static string ConfigFileFullPath = Paths.ConfigPath + Path.DirectorySeparatorChar + ConfigFileName;
-
+        public static bool HasAuga;
         internal static string ConnectionError = "";
 
         private readonly Harmony _harmony = new(ModGUID);
@@ -78,6 +79,11 @@ namespace RapidLoadouts
         private void Start()
         {
             _itemSetsButton = gameObject.AddComponent<ItemSetsButtonHolder>();
+            // If the chainloader has auga
+            if (Chainloader.PluginInfos.ContainsKey("randyknapp.mods.auga"))
+            {
+                HasAuga = true;
+            }
         }
 
         public static string SanitizeFileName(string fileName)

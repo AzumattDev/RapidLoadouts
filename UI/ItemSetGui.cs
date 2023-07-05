@@ -127,12 +127,16 @@ public class ItemSetGui : MonoBehaviour
             return;
         m_LocalPlayerRef = Player.m_localPlayer;
         InventoryGui.instance.m_dropButton.gameObject.SetActive(false);
-        if (Utils.FindChild(m_rootPanel.transform, "border (1)").GetComponent<Image>() != Utils.FindChild(StoreGui.instance.transform, "border (1)").GetComponent<Image>().sprite)
+        if (!RapidLoadoutsPlugin.HasAuga)
         {
-            Utils.FindChild(m_rootPanel.transform, "border (1)").GetComponent<Image>().sprite = Utils.FindChild(StoreGui.instance.transform, "border (1)").GetComponent<Image>().sprite; //Utils.FindChild(InventoryGui.instance.m_player.transform, "bkg").GetComponent<Image>().sprite;
+            if (Utils.FindChild(m_rootPanel.transform, "border (1)").GetComponent<Image>() != Utils.FindChild(StoreGui.instance.transform, "border (1)").GetComponent<Image>().sprite)
+            {
+                Utils.FindChild(m_rootPanel.transform, "border (1)").GetComponent<Image>().sprite = Utils.FindChild(StoreGui.instance.transform, "border (1)").GetComponent<Image>().sprite; //Utils.FindChild(InventoryGui.instance.m_player.transform, "bkg").GetComponent<Image>().sprite;
+            }
+
+            Utils.FindChild(m_rootPanel.transform, "border (1)").GetComponent<Image>().color = Utils.FindChild(InventoryGui.instance.m_player.transform, "bkg").GetComponent<Image>().color;
         }
 
-        Utils.FindChild(m_rootPanel.transform, "border (1)").GetComponent<Image>().color = Utils.FindChild(InventoryGui.instance.m_player.transform, "bkg").GetComponent<Image>().color;
         m_rootPanel.SetActive(true);
         PanelActive = true;
         RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug("Showing Item Set GUI");

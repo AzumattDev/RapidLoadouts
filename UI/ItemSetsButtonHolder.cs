@@ -8,10 +8,6 @@ namespace RapidLoadouts.UI
         private Button _itemSetsButton = null!;
         private Text _textComponent = null!;
 
-        public delegate void RecycleAllHandler();
-
-        public event RecycleAllHandler OnRecycleAllTriggered = null!;
-
         private void Start()
         {
             InvokeRepeating(nameof(EnsureRecyclingButtonExistsIfPossible), 0f, 5f);
@@ -42,7 +38,17 @@ namespace RapidLoadouts.UI
 
         private void SetupButton()
         {
-            _itemSetsButton = Instantiate(InventoryGui.instance.m_takeAllButton, InventoryGui.instance.m_player.transform);
+            if (_itemSetsButton != null)
+                return;
+            if (RapidLoadoutsPlugin.HasAuga)
+            {
+                _itemSetsButton = Instantiate(InventoryGui.instance.m_container.Find("TakeAll").GetComponent<Button>(), InventoryGui.instance.m_player.transform);
+            }
+            else
+            {
+                _itemSetsButton = Instantiate(InventoryGui.instance.m_takeAllButton, InventoryGui.instance.m_player.transform);
+            }
+
             _itemSetsButton.transform.SetParent(InventoryGui.instance.m_player.transform);
             _itemSetsButton.name = "ItemSetsButton";
             var newLocalPosition = GetSavedButtonPosition();

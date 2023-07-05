@@ -11,6 +11,8 @@
 
 ---
 
+#### This mod is compatible with Auga.
+
 Anything you do not find in this document will be added to the Wiki Tab for this mod. The wiki is the only thing I can
 live update if needed. It will also contain the information found on this page, just in case. If you have any questions,
 please feel free to ask *AFTER* reading the documentation.
