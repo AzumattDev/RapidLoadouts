@@ -29,51 +29,54 @@ public static class ItemSetHelper
         __instance.m_sets.AddRange(customSetDict.Values);
     }
 
-    public static List<ItemSets.ItemSet> ConvertToGameItemSets(List<ItemSet> customItemSets)
+    public static List<ItemSets.ItemSet> ConvertToGameItemSets(List<ItemSet?> customItemSets)
     {
         var gameItemSets = new List<ItemSets.ItemSet>();
 
         foreach (var customSet in customItemSets)
         {
-            var gameSet = new ItemSets.ItemSet
+            if (customSet != null)
             {
-                m_name = RegexUtilities.TrimInvalidCharacters(customSet.m_name),
-                m_items = new List<ItemSets.SetItem>(),
-                m_skills = new List<ItemSets.SetSkill>()
-            };
-
-            foreach (var customItem in customSet.m_items)
-            {
-                var gameItem = new ItemSets.SetItem
+                var gameSet = new ItemSets.ItemSet
                 {
-                    m_item = ConvertToItemDrop(customItem.m_item), // This method should convert string to ItemDrop
-                    m_quality = customItem.m_quality,
-                    m_stack = customItem.m_stack,
-                    m_use = customItem.m_use,
-                    m_hotbarSlot = customItem.m_hotbarSlot
+                    m_name = RegexUtilities.TrimInvalidCharacters(customSet.m_name),
+                    m_items = new List<ItemSets.SetItem>(),
+                    m_skills = new List<ItemSets.SetSkill>()
                 };
 
-                gameSet.m_items.Add(gameItem);
-            }
-
-            foreach (var customSkill in customSet.m_skills)
-            {
-                var gameSkill = new ItemSets.SetSkill
+                foreach (var customItem in customSet.m_items)
                 {
-                    m_skill = ConvertToSkillType(customSkill.m_skill), // This method should convert string to Skills.SkillType
-                    m_level = customSkill.m_level
-                };
+                    var gameItem = new ItemSets.SetItem
+                    {
+                        m_item = ConvertToItemDrop(customItem.m_item), // This method should convert string to ItemDrop
+                        m_quality = customItem.m_quality,
+                        m_stack = customItem.m_stack,
+                        m_use = customItem.m_use,
+                        m_hotbarSlot = customItem.m_hotbarSlot
+                    };
 
-                gameSet.m_skills.Add(gameSkill);
+                    gameSet.m_items.Add(gameItem);
+                }
+
+                foreach (var customSkill in customSet.m_skills)
+                {
+                    var gameSkill = new ItemSets.SetSkill
+                    {
+                        m_skill = ConvertToSkillType(customSkill.m_skill), // This method should convert string to Skills.SkillType
+                        m_level = customSkill.m_level
+                    };
+
+                    gameSet.m_skills.Add(gameSkill);
+                }
+
+                gameItemSets.Add(gameSet);
             }
-
-            gameItemSets.Add(gameSet);
         }
 
         return gameItemSets;
     }
 
-    internal static ItemDrop ConvertToItemDrop(string itemName)
+    internal static ItemDrop? ConvertToItemDrop(string itemName)
     {
         if (ObjectDB.instance == null) return null;
         var fabby = ObjectDB.instance.GetItemPrefab(itemName);

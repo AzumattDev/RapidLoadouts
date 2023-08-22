@@ -12,34 +12,34 @@ namespace RapidLoadouts.UI;
 
 public class ItemSetGui : MonoBehaviour
 {
-    public static ItemSetGui m_instance;
-    public static GameObject m_rootPanel;
-    public Button m_chooseButton;
-    public Button m_sellButton;
-    private Button _itemsetsButton = null!;
-    private Text _textComponent = null!;
-    private Image _imageComponent = null!;
-    public static RectTransform m_listRoot;
-    public static GameObject m_listElement;
-    public Scrollbar m_listScroll;
-    public static ScrollRectEnsureVisible m_itemEnsureVisible;
-    public Text m_coinText;
-    public Image m_coinIcon;
-    public Text m_topicText;
+    public static ItemSetGui? m_instance = null!;
+    public static GameObject m_rootPanel = null!;
+    public Button m_chooseButton = null!;
+    public Button m_sellButton = null!;
+    //private Button _itemsetsButton = null!;
+    //private Text _textComponent = null!;
+    //private Image _imageComponent = null!;
+    public static RectTransform m_listRoot = null!;
+    public static GameObject m_listElement = null!;
+    public Scrollbar m_listScroll = null!;
+    public static ScrollRectEnsureVisible m_itemEnsureVisible = null!;
+    public Text m_coinText = null!;
+    public Image m_coinIcon = null!;
+    public Text m_topicText = null!;
     public EffectList m_buyEffects = new();
     public EffectList m_sellEffects = new();
     public float m_hideDistance = 5f;
     public static float m_itemSpacing = 64f;
-    public static ItemDrop m_coinPrefab;
+    public static ItemDrop m_coinPrefab = null!;
     public static List<GameObject> m_itemList = new();
-    public static ItemSet m_selectedItem;
-    public static Player m_LocalPlayerRef;
+    public static ItemSet? m_selectedItem;
+    public static Player? m_LocalPlayerRef;
     public static float m_itemlistBaseSize;
     public List<ItemDrop.ItemData> m_tempItems = new();
 
     public static bool PanelActive;
 
-    public static ItemSetGui instance => m_instance;
+    public static ItemSetGui? instance => m_instance;
 
     public void Awake()
     {
@@ -109,7 +109,7 @@ public class ItemSetGui : MonoBehaviour
         m_coinText.text = GetPlayerCoins().ToString();
         try
         {
-            m_coinPrefab = ObjectDB.instance.GetItemPrefab(m_selectedItem.m_prefabCost).GetComponent<ItemDrop>();
+            m_coinPrefab = ObjectDB.instance.GetItemPrefab(m_selectedItem?.m_prefabCost).GetComponent<ItemDrop>();
         }
         catch
         {
@@ -196,13 +196,13 @@ public class ItemSetGui : MonoBehaviour
 
     public static int GetPlayerCoins() => Player.m_localPlayer.GetInventory().CountItems(m_coinPrefab.m_itemData.m_shared.m_name);
 
-    public bool CanAfford(ItemSet item)
+    public bool CanAfford(ItemSet? item)
     {
         int playerCoins = GetPlayerCoins();
-        return item.m_price <= playerCoins || Player.m_localPlayer.NoCostCheat();
+        return item != null && (item.m_price <= playerCoins || Player.m_localPlayer.NoCostCheat());
     }
 
-    public static List<ItemSet> GetAvailableSets()
+    public static List<ItemSet?> GetAvailableSets()
     {
         return RapidLoadoutsPlugin.RL_yamlData;
     }
@@ -211,7 +211,7 @@ public class ItemSetGui : MonoBehaviour
     {
         int playerCoins = GetPlayerCoins();
         int index1 = GetSelectedItemIndex();
-        List<ItemSet> availableItems = GetAvailableSets();
+        List<ItemSet?> availableItems = GetAvailableSets();
 
         foreach (Object @object in m_itemList)
             Destroy(@object);
@@ -221,14 +221,14 @@ public class ItemSetGui : MonoBehaviour
 
         for (int index2 = 0; index2 < availableItems.Count; ++index2)
         {
-            ItemSet itemSet = availableItems[index2];
+            ItemSet? itemSet = availableItems[index2];
             GameObject element = Instantiate(m_listElement, m_listRoot);
             element.SetActive(true);
-            (element.transform as RectTransform).anchoredPosition = new Vector2(0.0f, index2 * -m_itemSpacing);
+            ((element.transform as RectTransform)!).anchoredPosition = new Vector2(0.0f, index2 * -m_itemSpacing);
 
             int price = 0;
             // If the yaml file has a price, use that. Otherwise, use the default price.
-            if (itemSet.m_price != 0 && itemSet.m_price != null)
+            if (itemSet != null && itemSet.m_price != 0)
             {
                 price = itemSet.m_price;
             }
@@ -236,7 +236,7 @@ public class ItemSetGui : MonoBehaviour
             bool flag = price <= playerCoins || Player.m_localPlayer.NoCostCheat();
             Image elementIcon = element.transform.Find("icon").GetComponent<Image>();
 
-            if (itemSet.m_items == null || itemSet.m_items.Count == 0 || ItemSetHelper.ConvertToItemDrop(itemSet.m_items[0].m_item) == null)
+            if (itemSet?.m_items == null || itemSet.m_items.Count == 0 || ItemSetHelper.ConvertToItemDrop(itemSet.m_items[0].m_item) == null)
 
             {
                 elementIcon.sprite = ObjectDB.instance.GetItemPrefab("YagluthDrop").GetComponent<ItemDrop>().m_itemData.m_shared.m_icons[0];
@@ -248,19 +248,19 @@ public class ItemSetGui : MonoBehaviour
 
 
             elementIcon.color = flag ? Color.white : new Color(1f, 0.0f, 1f, 0.0f);
-            string str = Localization.instance.Localize(itemSet.m_name ?? "Unknown Item Set");
+            string str = Localization.instance.Localize(itemSet?.m_name ?? "Unknown Item Set");
             Text elementName = element.transform.Find("name").GetComponent<Text>();
             elementName.text = str;
             elementName.color = flag ? Color.white : Color.grey;
             UITooltip elementTooltip = element.GetComponent<UITooltip>();
-            elementTooltip.m_topic = itemSet.m_name ?? "Unknown Item Set";
+            elementTooltip.m_topic = itemSet?.m_name ?? "Unknown Item Set";
 
             StringBuilder stringBuilder = new();
-            stringBuilder.Append($"Drop Current Items: {itemSet.m_dropCurrent}");
+            stringBuilder.Append($"Drop Current Items: {itemSet is { m_dropCurrent: true }}");
 
             // append all skills from the itemSet.m_skills
             stringBuilder.Append(Environment.NewLine + "Skills: ");
-            if (itemSet.m_skills.Count > 0)
+            if (itemSet is { m_skills.Count: > 0 })
             {
                 foreach (var skill in itemSet.m_skills)
                 {
@@ -268,7 +268,7 @@ public class ItemSetGui : MonoBehaviour
                 }
             }
 
-            if (itemSet.m_items != null)
+            if (itemSet?.m_items != null)
             {
                 if (itemSet.m_items.Count > 0)
                 {
@@ -284,14 +284,14 @@ public class ItemSetGui : MonoBehaviour
             }
 
 
-            if (!string.IsNullOrEmpty(itemSet.m_setEffect))
+            if (!string.IsNullOrEmpty(itemSet?.m_setEffect))
             {
-                stringBuilder.Append($"{Environment.NewLine}Set Effect: {itemSet.m_setEffect}");
+                stringBuilder.Append($"{Environment.NewLine}Set Effect: {itemSet?.m_setEffect}");
             }
 
             elementTooltip.m_text = stringBuilder.ToString();
             Text component4 = Utils.FindChild(element.transform, "price").GetComponent<Text>();
-            component4.text = Player.m_localPlayer.NoCostCheat() ? "Free" : itemSet.m_price.ToString();
+            component4.text = Player.m_localPlayer.NoCostCheat() ? "Free" : itemSet?.m_price.ToString();
             if (!flag)
                 component4.color = Color.grey;
             element.GetComponent<Button>().onClick.AddListener(() => OnSelectedItem(element));
@@ -335,7 +335,7 @@ public class ItemSetGui : MonoBehaviour
     public static int GetSelectedItemIndex()
     {
         int selectedItemIndex = 0;
-        List<ItemSet> availableItems = GetAvailableSets();
+        List<ItemSet?> availableItems = GetAvailableSets();
         for (int index = 0; index < availableItems.Count; ++index)
         {
             if (availableItems[index] == m_selectedItem)

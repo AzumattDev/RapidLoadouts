@@ -21,7 +21,7 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.1";
+        internal const string ModVersion = "1.0.2";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -31,7 +31,7 @@ namespace RapidLoadouts
 
         private readonly Harmony _harmony = new(ModGUID);
 
-        private ItemSetsButtonHolder _itemSetsButton;
+        private ItemSetsButtonHolder _itemSetsButton = null!;
 
         public static readonly ManualLogSource RapidLoadoutsLogger = BepInEx.Logging.Logger.CreateLogSource(ModName);
 
@@ -42,7 +42,7 @@ namespace RapidLoadouts
         internal static readonly string yamlPath = Paths.ConfigPath + Path.DirectorySeparatorChar + yamlFileName;
         internal static readonly CustomSyncedValue<string> AzuRL_yamlData = new(ConfigSync, "AzuRL_yamlData", "");
 
-        internal static List<ItemSet> RL_yamlData = new();
+        internal static List<ItemSet?> RL_yamlData = new();
 
         public enum Toggle
         {

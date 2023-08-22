@@ -21,7 +21,7 @@ namespace RapidLoadouts.UI
                 SetupButton();
             }
 
-            _itemSetsButton.gameObject.SetActive(true);
+            _itemSetsButton?.gameObject.SetActive(true);
         }
 
         private void OnDestroy()
