@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RapidLoadouts.YAMLStuff;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -23,9 +24,9 @@ public class ItemSetGui : MonoBehaviour
     public static GameObject m_listElement = null!;
     public Scrollbar m_listScroll = null!;
     public static ScrollRectEnsureVisible m_itemEnsureVisible = null!;
-    public Text m_coinText = null!;
+    public TMP_Text m_coinText = null!;
     public Image m_coinIcon = null!;
-    public Text m_topicText = null!;
+    public TMP_Text m_topicText = null!;
     public EffectList m_buyEffects = new();
     public EffectList m_sellEffects = new();
     public float m_hideDistance = 5f;
@@ -249,7 +250,7 @@ public class ItemSetGui : MonoBehaviour
 
             elementIcon.color = flag ? Color.white : new Color(1f, 0.0f, 1f, 0.0f);
             string str = Localization.instance.Localize(itemSet?.m_name ?? "Unknown Item Set");
-            Text elementName = element.transform.Find("name").GetComponent<Text>();
+            TMP_Text elementName = element.transform.Find("name").GetComponent<TMP_Text>();
             elementName.text = str;
             elementName.color = flag ? Color.white : Color.grey;
             UITooltip elementTooltip = element.GetComponent<UITooltip>();
@@ -290,7 +291,7 @@ public class ItemSetGui : MonoBehaviour
             }
 
             elementTooltip.m_text = stringBuilder.ToString();
-            Text component4 = Utils.FindChild(element.transform, "price").GetComponent<Text>();
+            TMP_Text component4 = Utils.FindChild(element.transform, "price").GetComponent<TMP_Text>();
             component4.text = Player.m_localPlayer.NoCostCheat() ? "Free" : itemSet?.m_price.ToString();
             if (!flag)
                 component4.color = Color.grey;

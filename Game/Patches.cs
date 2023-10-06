@@ -3,6 +3,7 @@ using System.Resources;
 using HarmonyLib;
 using RapidLoadouts.UI;
 using RapidLoadouts.YAMLStuff;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -82,7 +83,7 @@ static class StoreGuiAwakePatch
             // Update references and settings
             ItemSetGui.m_rootPanel = Utils.FindChild(newRootPanel.transform, "Store").gameObject;
             itemsetGui.m_chooseButton = Utils.FindChild(newRootPanel.transform, "BuyButton").GetComponent<Button>();
-            itemsetGui.m_chooseButton.transform.Find(RapidLoadoutsPlugin.HasAuga ? "Label" : "Text").GetComponent<Text>().text = Localization.instance.Localize("$azu_rl_buyItemSet");
+            itemsetGui.m_chooseButton.transform.Find(RapidLoadoutsPlugin.HasAuga ? "Label" : "Text").GetComponent<TMP_Text>().text = Localization.instance.Localize("$azu_rl_buyItemSet");
 
             itemsetGui.m_sellButton = Utils.FindChild(newRootPanel.transform, "SellButton").GetComponent<Button>();
             itemsetGui.m_sellButton.GetComponent<UITooltip>().m_text = RapidLoadoutsPlugin.HasAuga
@@ -104,7 +105,7 @@ static class StoreGuiAwakePatch
             itemsetGui.m_listScroll = Utils.FindChild(newRootPanel.transform, RapidLoadoutsPlugin.HasAuga ? "ScrollBar" : "ItemScroll").GetComponent<Scrollbar>();
             ItemSetGui.m_itemEnsureVisible = Utils.FindChild(newRootPanel.transform, RapidLoadoutsPlugin.HasAuga ? "ItemListBkg" : "Items").GetComponent<ScrollRectEnsureVisible>();
 
-            itemsetGui.m_coinText = newRootPanel.transform.Find($"Store/{(RapidLoadoutsPlugin.HasAuga ? "DividerMedium/" : "")}coins/coins").GetComponent<Text>();
+            itemsetGui.m_coinText = newRootPanel.transform.Find($"Store/{(RapidLoadoutsPlugin.HasAuga ? "DividerMedium/" : "")}coins/coins").GetComponent<TMP_Text>();
             itemsetGui.m_coinIcon = newRootPanel.transform.Find($"Store/{(RapidLoadoutsPlugin.HasAuga ? "DividerMedium/" : "")}coins/coin icon{(RapidLoadoutsPlugin.HasAuga ? "/coin icon" : "")}").GetComponent<Image>();
 
             if (!RapidLoadoutsPlugin.HasAuga)
@@ -113,7 +114,7 @@ static class StoreGuiAwakePatch
                 newRootPanel.transform.Find("Store/coins").GetComponent<RectTransform>().anchoredPosition += new Vector2(35, 0);
             }
 
-            itemsetGui.m_topicText = Utils.FindChild(newRootPanel.transform, RapidLoadoutsPlugin.HasAuga ? "Topic" : "topic").GetComponent<Text>();
+            itemsetGui.m_topicText = Utils.FindChild(newRootPanel.transform, RapidLoadoutsPlugin.HasAuga ? "Topic" : "topic").GetComponent<TMP_Text>();
 
 
             itemsetGui.m_buyEffects = newRootPanel.GetComponent<StoreGui>().m_buyEffects;

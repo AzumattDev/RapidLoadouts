@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RapidLoadouts.UI
@@ -6,7 +7,7 @@ namespace RapidLoadouts.UI
     public class ItemSetsButtonHolder : MonoBehaviour
     {
         private Button _itemSetsButton = null!;
-        private Text _textComponent = null!;
+        private TMP_Text _textComponent = null!;
 
         private void Start()
         {
@@ -55,7 +56,7 @@ namespace RapidLoadouts.UI
             _itemSetsButton.transform.localPosition = newLocalPosition;
             _itemSetsButton.onClick = new Button.ButtonClickedEvent();
             _itemSetsButton.onClick.AddListener(ItemSetGui.ToggleUI);
-            _textComponent = _itemSetsButton.GetComponentInChildren<Text>();
+            _textComponent = _itemSetsButton.GetComponentInChildren<TMP_Text>();
             _textComponent.text = Localization.instance.Localize("$azu_rl_itemSets");
             var dragger = _itemSetsButton.gameObject.AddComponent<UIDragger>();
             dragger.OnUIDropped += (source, position) => { RapidLoadoutsPlugin.InventoryItemSetButtonPosition.Value = position; };
