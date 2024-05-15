@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace RapidLoadouts.YAMLStuff;
 
@@ -31,22 +32,22 @@ public static class ItemSetHelper
 
     public static List<ItemSets.ItemSet> ConvertToGameItemSets(List<ItemSet?> customItemSets)
     {
-        var gameItemSets = new List<ItemSets.ItemSet>();
+        List<ItemSets.ItemSet> gameItemSets = new List<ItemSets.ItemSet>();
 
-        foreach (var customSet in customItemSets)
+        foreach (ItemSet? customSet in customItemSets)
         {
             if (customSet != null)
             {
-                var gameSet = new ItemSets.ItemSet
+                ItemSets.ItemSet gameSet = new ItemSets.ItemSet
                 {
                     m_name = RegexUtilities.TrimInvalidCharacters(customSet.m_name),
                     m_items = new List<ItemSets.SetItem>(),
                     m_skills = new List<ItemSets.SetSkill>()
                 };
 
-                foreach (var customItem in customSet.m_items)
+                foreach (SetItem? customItem in customSet.m_items)
                 {
-                    var gameItem = new ItemSets.SetItem
+                    ItemSets.SetItem gameItem = new ItemSets.SetItem
                     {
                         m_item = ConvertToItemDrop(customItem.m_item), // This method should convert string to ItemDrop
                         m_quality = customItem.m_quality,
@@ -58,9 +59,9 @@ public static class ItemSetHelper
                     gameSet.m_items.Add(gameItem);
                 }
 
-                foreach (var customSkill in customSet.m_skills)
+                foreach (SetSkill? customSkill in customSet.m_skills)
                 {
-                    var gameSkill = new ItemSets.SetSkill
+                    ItemSets.SetSkill gameSkill = new ItemSets.SetSkill
                     {
                         m_skill = ConvertToSkillType(customSkill.m_skill), // This method should convert string to Skills.SkillType
                         m_level = customSkill.m_level
@@ -79,7 +80,7 @@ public static class ItemSetHelper
     internal static ItemDrop? ConvertToItemDrop(string itemName)
     {
         if (ObjectDB.instance == null) return null;
-        var fabby = ObjectDB.instance.GetItemPrefab(itemName);
+        GameObject? fabby = ObjectDB.instance.GetItemPrefab(itemName);
         if (fabby != null)
         {
             return fabby.GetComponent<ItemDrop>();

@@ -30,7 +30,7 @@ public class YAMLUtils
 
     internal static void ReadYaml(string yamlInput)
     {
-        var deserializer = new DeserializerBuilder().Build();
+        IDeserializer deserializer = new DeserializerBuilder().Build();
         RapidLoadoutsPlugin.RL_yamlData = deserializer.Deserialize<List<ItemSet>>(yamlInput)!;
         // log the yaml data
         RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"yamlData:\n{yamlInput}");
@@ -46,7 +46,7 @@ public class YAMLUtils
 
         try
         {
-            var deserializer = new DeserializerBuilder()
+            IDeserializer deserializer = new DeserializerBuilder()
                 .WithNamingConvention(UnderscoredNamingConvention.Instance)
                 .Build();
 

@@ -83,7 +83,7 @@ namespace Recycle_N_Reclaim.GamePatches
             string? version = pkg.ReadString();
             string? hash = pkg.ReadString();
 
-            var hashForAssembly = ComputeHashForMod().Replace("-", "");
+            string? hashForAssembly = ComputeHashForMod().Replace("-", "");
 
             RapidLoadoutsPlugin.RapidLoadoutsLogger.LogInfo($"Hash/Version check, local: {RapidLoadoutsPlugin.ModVersion} {hashForAssembly} remote: {version} {hash}");
             if (hash != hashForAssembly || version != RapidLoadoutsPlugin.ModVersion)

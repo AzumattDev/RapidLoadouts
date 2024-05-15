@@ -66,13 +66,13 @@ static class StoreGuiAwakePatch
             RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug("Root panel: " + rootPanel.name);
 
             // Clone the root panel
-            var newRootPanel = Object.Instantiate(rootPanel, InventoryGui.instance.m_player.transform, false);
+            GameObject? newRootPanel = Object.Instantiate(rootPanel, InventoryGui.instance.m_player.transform, false);
             newRootPanel.name = "AzuRapidLoadoutsRootPanel";
             // Set the new root panel position to be middle of the screen
             newRootPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(550, 150);
             newRootPanel.GetComponent<RectTransform>().localPosition = RapidLoadoutsPlugin.ItemSetWindow.Value;
             // Add the ItemSetGui component to the newRootPanel
-            var itemsetGui = newRootPanel.AddComponent<ItemSetGui>();
+            ItemSetGui? itemsetGui = newRootPanel.AddComponent<ItemSetGui>();
             if (itemsetGui == null)
             {
                 RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug("ItemSetGui component not found on newRootPanel");
@@ -128,7 +128,7 @@ static class StoreGuiAwakePatch
             GameObject.DestroyImmediate(newRootPanel.GetComponent<StoreGui>());
 
             // Add UIDragger and event handler
-            var dragger = newRootPanel.AddComponent<UIDragger>();
+            UIDragger? dragger = newRootPanel.AddComponent<UIDragger>();
             dragger.OnUIDropped += (source, position) => { RapidLoadoutsPlugin.ItemSetWindow.Value = position; };
             RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug("ItemSetGui created successfully");
         }

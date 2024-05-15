@@ -16,7 +16,9 @@ public class ItemSetGui : MonoBehaviour
     public static ItemSetGui? m_instance = null!;
     public static GameObject m_rootPanel = null!;
     public Button m_chooseButton = null!;
+
     public Button m_sellButton = null!;
+
     //private Button _itemsetsButton = null!;
     //private Text _textComponent = null!;
     //private Image _imageComponent = null!;
@@ -37,6 +39,7 @@ public class ItemSetGui : MonoBehaviour
     public static Player? m_LocalPlayerRef;
     public static float m_itemlistBaseSize;
     public List<ItemDrop.ItemData> m_tempItems = new();
+    static List<ItemSet?> availableSets = new();
 
     public static bool PanelActive;
 
@@ -205,7 +208,60 @@ public class ItemSetGui : MonoBehaviour
 
     public static List<ItemSet?> GetAvailableSets()
     {
-        return RapidLoadoutsPlugin.RL_yamlData;
+        if (availableSets.Any())
+        {
+            return availableSets;
+        }
+
+        if (RapidLoadoutsPlugin.RL_yamlData != null)
+        {
+            availableSets.AddRange(RapidLoadoutsPlugin.RL_yamlData);
+        }
+
+        if (ItemSets.instance != null && ItemSets.instance.m_sets != null)
+        {
+            foreach (ItemSets.ItemSet? itemSet in ItemSets.instance.m_sets)
+            {
+                if (itemSet != null && availableSets.All(set => RegexUtilities.TrimInvalidCharacters(set?.m_name.ToLower().Replace(" ", "")) != itemSet.m_name.ToLower()))
+                {
+                    // Debug information for what is currently in the list and what is being considered for addition
+                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Attempting to add ItemSet {itemSet.m_name}. Current count: {availableSets.Count}");
+
+
+                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Adding ItemSet {itemSet.m_name}");
+
+                    availableSets.Add(new ItemSet
+                    {
+                        m_name = itemSet.m_name.Trim(),
+                        m_items = itemSet.m_items?.Select(item => item == null
+                            ? null
+                            : new SetItem
+                            {
+                                m_item = item.m_item?.gameObject?.name ?? "Unknown",
+                                m_quality = item.m_quality,
+                                m_stack = item.m_stack,
+                                m_use = item.m_use,
+                                m_hotbarSlot = item.m_hotbarSlot
+                            }).ToList(),
+                        m_skills = itemSet.m_skills?.Select(skill => skill == null
+                            ? null
+                            : new SetSkill
+                            {
+                                m_skill = skill.m_skill.ToString(),
+                                m_level = skill.m_level
+                            }).ToList(),
+                        m_dropCurrent = true,
+                        m_price = 999,
+                        m_prefabCost = "Bronze",
+                        m_setEffect = "Potion_eitr_minor",
+                        m_setEffectAsGP = false
+                    });
+                }
+            }
+        }
+
+
+        return availableSets;
     }
 
     public static void FillList()
@@ -263,7 +319,7 @@ public class ItemSetGui : MonoBehaviour
             stringBuilder.Append(Environment.NewLine + "Skills: ");
             if (itemSet is { m_skills.Count: > 0 })
             {
-                foreach (var skill in itemSet.m_skills)
+                foreach (SetSkill? skill in itemSet.m_skills)
                 {
                     stringBuilder.Append($"{skill.m_skill} {skill.m_level}{Environment.NewLine}");
                 }
@@ -273,9 +329,9 @@ public class ItemSetGui : MonoBehaviour
             {
                 if (itemSet.m_items.Count > 0)
                 {
-                    foreach (var item in itemSet.m_items)
+                    foreach (SetItem? item in itemSet.m_items)
                     {
-                        var itemName = ItemSetHelper.ConvertToItemDrop(item.m_item)?.m_itemData?.m_shared?.m_name;
+                        string? itemName = ItemSetHelper.ConvertToItemDrop(item.m_item)?.m_itemData?.m_shared?.m_name;
                         if (!string.IsNullOrEmpty(itemName))
                         {
                             stringBuilder.Append($"{Environment.NewLine}{Localization.instance.Localize(itemName)} x{ItemSetHelper.Repeat("\u2605", item.m_quality)}");

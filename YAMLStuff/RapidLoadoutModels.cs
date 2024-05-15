@@ -9,9 +9,9 @@ public class ItemSet
 {
     [YamlMember(Alias = "name")] public string m_name = null!;
     
-    [YamlMember(Alias = "items")] public List<SetItem> m_items = new();
+    [YamlMember(Alias = "items")] public List<SetItem>? m_items = new();
 
-    [YamlMember(Alias = "skills")] public List<SetSkill> m_skills = new();
+    [YamlMember(Alias = "skills")] public List<SetSkill?>? m_skills = new();
 
     [YamlMember(Alias = "dropCurrent")] public bool m_dropCurrent;
     
