@@ -218,49 +218,6 @@ public class ItemSetGui : MonoBehaviour
             availableSets.AddRange(RapidLoadoutsPlugin.RL_yamlData);
         }
 
-        if (ItemSets.instance != null && ItemSets.instance.m_sets != null)
-        {
-            foreach (ItemSets.ItemSet? itemSet in ItemSets.instance.m_sets)
-            {
-                if (itemSet != null && availableSets.All(set => RegexUtilities.TrimInvalidCharacters(set?.m_name.ToLower().Replace(" ", "")) != itemSet.m_name.ToLower()))
-                {
-                    // Debug information for what is currently in the list and what is being considered for addition
-                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Attempting to add ItemSet {itemSet.m_name}. Current count: {availableSets.Count}");
-
-
-                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Adding ItemSet {itemSet.m_name}");
-
-                    availableSets.Add(new ItemSet
-                    {
-                        m_name = itemSet.m_name.Trim(),
-                        m_items = itemSet.m_items?.Select(item => item == null
-                            ? null
-                            : new SetItem
-                            {
-                                m_item = item.m_item?.gameObject?.name ?? "Unknown",
-                                m_quality = item.m_quality,
-                                m_stack = item.m_stack,
-                                m_use = item.m_use,
-                                m_hotbarSlot = item.m_hotbarSlot
-                            }).ToList(),
-                        m_skills = itemSet.m_skills?.Select(skill => skill == null
-                            ? null
-                            : new SetSkill
-                            {
-                                m_skill = skill.m_skill.ToString(),
-                                m_level = skill.m_level
-                            }).ToList(),
-                        m_dropCurrent = true,
-                        m_price = 999,
-                        m_prefabCost = "Bronze",
-                        m_setEffect = "Potion_eitr_minor",
-                        m_setEffectAsGP = false
-                    });
-                }
-            }
-        }
-
-
         return availableSets;
     }
 

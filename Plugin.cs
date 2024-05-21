@@ -21,7 +21,7 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.5";
+        internal const string ModVersion = "1.0.6";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -60,9 +60,8 @@ namespace RapidLoadouts
             itemSetCostPrefab = config("1 - General", "ItemSetCostPrefab", "Coins", "Default Currency. This is the fallback currency that will be used when buying ItemSets from the ItemSet Window.");
             InventoryItemSetButtonPosition = config("2 - UI", "ItemSetButtonPosition", new Vector3(63.0f, -316.0f, -1.0f), "The last saved ItemSet Button's screen position.");
             ItemSetWindow = config("2 - UI", "ItemSetWindow", new Vector3(428f, -276f, -1.0f), "The last saved ItemSet Window's screen position.");
-            
-            
-            
+
+
             if (!File.Exists(yamlPath))
             {
                 YAMLUtils.WriteConfigFileFromResource(yamlPath);
@@ -244,4 +243,56 @@ namespace RapidLoadouts
 
         #endregion
     }
+#if DEBUG
+    [HarmonyPatch(typeof(ItemSets), nameof(ItemSets.Awake))]
+    static class ItemSetsAwakePatch
+    {
+        static void Postfix(ItemSets __instance)
+        {
+            foreach (ItemSets.ItemSet? itemSet in __instance.m_sets)
+            {
+                if (itemSet != null)
+                {
+                    // Debug information for what is currently in the list and what is being considered for addition
+                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Attempting to add ItemSet {itemSet.m_name}");
+
+
+                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Adding ItemSet {itemSet.m_name}");
+
+                    var set = new ItemSet
+                    {
+                        m_name = itemSet.m_name.Trim(),
+                        m_items = itemSet.m_items?.Select(item => item == null
+                            ? null
+                            : new SetItem
+                            {
+                                m_item = item.m_item?.gameObject?.name ?? "Resin",
+                                m_quality = item.m_quality,
+                                m_stack = item.m_stack,
+                                m_use = item.m_use,
+                                m_hotbarSlot = item.m_hotbarSlot
+                            }).ToList(),
+                        m_skills = itemSet.m_skills?.Select(skill => skill == null
+                            ? null
+                            : new SetSkill
+                            {
+                                m_skill = skill.m_skill.ToString(),
+                                m_level = skill.m_level
+                            }).ToList(),
+                        m_dropCurrent = true,
+                        m_price = 999,
+                        m_prefabCost = "Bronze",
+                        m_setEffect = "Potion_eitr_minor",
+                        m_setEffectAsGP = false
+                    };
+
+                    // Save the set to a yaml file
+                    RapidLoadoutsPlugin.RL_yamlData.Add(set);
+                    // Save the set to the file
+                    YAMLUtils.WriteYaml(RapidLoadoutsPlugin.yamlPath);
+                }
+            }
+        }
+    }
+#endif
 }

@@ -35,6 +35,14 @@ public class YAMLUtils
         // log the yaml data
         RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"yamlData:\n{yamlInput}");
     }
+    
+    // Write the yaml data to the file
+    internal static void WriteYaml(string yamlPath)
+    {
+        ISerializer serializer = new SerializerBuilder().Build();
+        string yamlOutput = serializer.Serialize(RapidLoadoutsPlugin.RL_yamlData);
+        File.WriteAllText(yamlPath, yamlOutput);
+    }
 
     internal void LoadCustomItemSets()
     {
