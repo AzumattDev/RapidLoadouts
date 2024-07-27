@@ -56,6 +56,7 @@
   dropCurrent: true
   price: 50
   costPrefab: "Etir"
+  requiredGlobalKey: "defeated_eikthyr"
 - name: "Potion Pack"
   items:
     - item: "MeadHealthMinor"

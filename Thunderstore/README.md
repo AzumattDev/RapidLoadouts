@@ -151,6 +151,7 @@ game. Save a backup copy before making any changes.
   dropCurrent: false
   price: 10
   costPrefab: "FineWood"
+  requiredGlobalKey: "defeated_eikthyr"
 - name: "AzuMage"
   items:
     - item: "ArmorCarapaceChest"
@@ -199,6 +200,7 @@ game. Save a backup copy before making any changes.
   dropCurrent: true
   price: 50
   costPrefab: "Etir"
+  requiredGlobalKey: "defeated_bonemass"
 - name: "Potion Pack"
   items:
     - item: "MeadHealthMinor"

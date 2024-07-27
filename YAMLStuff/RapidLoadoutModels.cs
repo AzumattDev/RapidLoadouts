@@ -22,6 +22,8 @@ public class ItemSet
     [YamlMember(Alias = "setEffect")] public string m_setEffect = null!;
 
     [YamlMember(Alias = "setEffectAsGP")] public bool m_setEffectAsGP;
+
+    [YamlMember(Alias = "requiredGlobalKey")] public string m_requiredGlobalKey = "";
 }
 
 [Serializable]

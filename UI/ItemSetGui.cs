@@ -94,8 +94,7 @@ public class ItemSetGui : MonoBehaviour
     private static bool ShouldClose()
     {
         Player localPlayer = Player.m_localPlayer;
-        bool isUIBlocking = (Chat.instance != null && Chat.instance.HasFocus()) || Console.IsVisible() ||
-                            Menu.IsVisible() || (TextViewer.instance != null && TextViewer.instance.IsVisible()) || localPlayer.InCutscene();
+        bool isUIBlocking = (Chat.instance != null && Chat.instance.HasFocus()) || Console.IsVisible() || Menu.IsVisible() || (TextViewer.instance != null && TextViewer.instance.IsVisible()) || localPlayer.InCutscene();
 
         if (isUIBlocking && (ZInput.GetButtonDown("JoyButtonB") || Input.GetKeyDown(KeyCode.Escape) || ZInput.GetButtonDown("Use")))
         {
@@ -208,6 +207,7 @@ public class ItemSetGui : MonoBehaviour
 
     public static List<ItemSet?> GetAvailableSets()
     {
+        availableSets.Clear();
         if (availableSets.Any())
         {
             return availableSets;
@@ -225,7 +225,7 @@ public class ItemSetGui : MonoBehaviour
     {
         int playerCoins = GetPlayerCoins();
         int index1 = GetSelectedItemIndex();
-        List<ItemSet?> availableItems = GetAvailableSets();
+        List<ItemSet?> availableItems = GetAvailableSets().Where(x=> x!= null && (string.IsNullOrEmpty(x.m_requiredGlobalKey) || ZoneSystem.instance.GetGlobalKey(x.m_requiredGlobalKey))).ToList();
 
         foreach (Object @object in m_itemList)
             Destroy(@object);

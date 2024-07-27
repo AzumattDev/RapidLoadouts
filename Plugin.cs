@@ -21,7 +21,7 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.6";
+        internal const string ModVersion = "1.0.7";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
