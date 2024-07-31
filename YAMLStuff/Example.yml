@@ -8,6 +8,7 @@
   dropCurrent: false
   price: 10
   costPrefab: "FineWood"
+  requiredGlobalKey: "defeated_eikthyr"
 - name: "AzuMage"
   items:
     - item: "ArmorCarapaceChest"
@@ -56,7 +57,6 @@
   dropCurrent: true
   price: 50
   costPrefab: "Etir"
-  requiredGlobalKey: "defeated_eikthyr"
 - name: "Potion Pack"
   items:
     - item: "MeadHealthMinor"
@@ -71,7 +71,7 @@
       hotbarSlot: 0
   dropCurrent: false
   price: 50
-- name: "Testing Pack"
+- name: "Testing Packs"
   items:
     - item: "SwordBronze"
       quality: 3
@@ -84,7 +84,7 @@
     - skill: "Run"
       level: 100
   dropCurrent: false
-  price: 100
+  price: 1000
   costPrefab: "Bronze"
 - name: "Status Effect Test"
   setEffect: "Potion_eitr_minor"
@@ -2622,3 +2622,548 @@
   costPrefab: Coins
   setEffect: Potion_eitr_minor
   setEffectAsGP: false
+- name: "Give Axe"
+  items:
+    - item: "AxeBlackMetal"
+      quality: 2
+      stack: 1
+      use: false
+      hotbarSlot: 2
+  dropCurrent: false
+  price: 15
+  costPrefab: "Iron"
+
+- name: "Hunter Pack"
+  items:
+    - item: "BowHuntsman"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArrowSilver"
+      quality: 1
+      stack: 100
+      use: false
+      hotbarSlot: 2
+    - item: "ArmorTrollLeatherChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorTrollLeatherLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Bows"
+      level: 50
+  dropCurrent: false
+  price: 75
+  costPrefab: "TrollHide"
+  requiredGlobalKey: "defeated_bonemass"
+
+- name: "Miner's Delight"
+  items:
+    - item: "PickaxeIron"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "MeadStaminaMedium"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorIronChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorIronLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Pickaxes"
+      level: 60
+  dropCurrent: false
+  price: 120
+  costPrefab: "Iron"
+
+- name: "Wizard's Kit"
+  items:
+    - item: "StaffLightning"
+      quality: 1
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArmorFenringChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorFenringLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "HelmetFenring"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "YggdrasilPorridge"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "All"
+      level: 80
+  dropCurrent: true
+  price: 150
+  costPrefab: "Etir"
+  setEffect: "Potion_eitr_minor"
+  setEffectAsGP: true
+
+- name: "Warrior's Arsenal"
+  items:
+    - item: "SwordIron"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ShieldBanded"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorIronChest"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorIronLegs"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "HelmetIron"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "MeadHealthMajor"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Swords"
+      level: 100
+    - skill: "Blocking"
+      level: 100
+  dropCurrent: true
+  price: 200
+  costPrefab: "Iron"
+
+- name: "Builder's Pack"
+  items:
+    - item: "Hammer"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "Hoe"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "Cultivator"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "AxeIron"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "Wood"
+      quality: 1
+      stack: 200
+      use: false
+      hotbarSlot: 0
+  skills:
+    - skill: "WoodCutting"
+      level: 50
+  dropCurrent: false
+  price: 50
+  costPrefab: "FineWood"
+
+- name: "Explorer's Pack"
+  items:
+    - item: "Torch"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "CapeLox"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorLeatherLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "CookedDeerMeat"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Run"
+      level: 70
+    - skill: "Jump"
+      level: 70
+  dropCurrent: false
+  price: 100
+  costPrefab: "Silver"
+  setEffect: "Potion_eitr_minor"
+  setEffectAsGP: false
+- name: "Chef's Delight"
+  items:
+    - item: "CookedDeerMeat"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 2
+    - item: "CookedLoxMeat"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 3
+    - item: "TurnipStew"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 4
+    - item: "QueensJam"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 5
+    - item: "MeadTasty"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 6
+  dropCurrent: false
+  price: 60
+  costPrefab: "Honey"
+
+- name: "Blacksmith's Kit"
+  items:
+    - item: "Hammer"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "PickaxeBronze"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+  skills:
+    - skill: "Pickaxes"
+      level: 40
+  dropCurrent: false
+  price: 100
+  costPrefab: "Iron"
+
+- name: "Seafarer's Bundle"
+  items:
+    - item: "ArmorPaddedCuirass"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorPaddedGreaves"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "HelmetIron"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadFrostResist"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Swim"
+      level: 50
+  dropCurrent: false
+  price: 80
+  costPrefab: "FineWood"
+
+- name: "Rogue's Pack"
+  items:
+    - item: "KnifeBlackMetal"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "KnifeSilver"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorPaddedCuirass"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorPaddedGreaves"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "CapeTrollHide"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 5
+    - item: "MeadHealthMinor"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 6
+  skills:
+    - skill: "Knives"
+      level: 60
+  dropCurrent: true
+  price: 90
+  costPrefab: "Silver"
+
+- name: "Archer's Bundle"
+  items:
+    - item: "BowFineWood"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArrowFire"
+      quality: 1
+      stack: 100
+      use: true
+      hotbarSlot: 2
+    - item: "ArrowFrost"
+      quality: 1
+      stack: 100
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "ArmorLeatherLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Bows"
+      level: 75
+  dropCurrent: false
+  price: 85
+  costPrefab: "FineWood"
+
+- name: "Necromancer's Pack"
+  items:
+    - item: "StaffSkeleton"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArmorFenringChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorFenringLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "HelmetFenring"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadEitrLingering"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "All"
+      level: 65
+  dropCurrent: true
+  price: 100
+  costPrefab: "Etir"
+
+- name: "Guardian's Gear"
+  items:
+    - item: "ShieldIronTower"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "MaceIron"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorIronChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorIronLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "HelmetIron"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 5
+    - item: "MeadHealthMedium"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 6
+  skills:
+    - skill: "Blocking"
+      level: 70
+    - skill: "Clubs"
+      level: 70
+  dropCurrent: true
+  price: 110
+  costPrefab: "Iron"
+
+- name: "Pathfinder Pack"
+  items:
+    - item: "Torch"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "CapeLox"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadHealthMinor"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Run"
+      level: 60
+    - skill: "Sneak"
+      level: 60
+  dropCurrent: false
+  price: 75
+  costPrefab: "Silver"
+
+- name: "Fisherman's Friend"
+  items:
+    - item: "FishingRod"
+      quality: 1
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "FishingBait"
+      quality: 1
+      stack: 50
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+  skills:
+    - skill: "Fishing"
+      level: 50
+  dropCurrent: false
+  price: 60
+  costPrefab: "Silver"
+
+- name: "Defender's Pack"
+  items:
+    - item: "ShieldWood"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "Club"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadHealthMinor"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Blocking"
+      level: 50
+    - skill: "Clubs"
+      level: 50
+  dropCurrent: false
+  price: 70
+  costPrefab: "Bronze"

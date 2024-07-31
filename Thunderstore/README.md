@@ -1,6 +1,6 @@
 # Description
 
-## A mod that adds ItemSets to the player's inventory. Pre-configured sets that can be purchased. It's highly configurable. Use your imagination!
+## A mod that adds Loadouts to the player's inventory (personal and purchasable). Pre-configured loadouts that can be purchased and personal ones that can be hot-swapped. It's highly configurable. Use your imagination!
 
 `Version checks with itself. If installed on the server, it will kick clients who do not have it installed.`
 
@@ -21,8 +21,10 @@ please feel free to ask *AFTER* reading the documentation.
 
 [![](https://i.imgur.com/yKjqxpC.png)](https://valheim.thunderstore.io/package/Azumatt/RapidLoadouts/wiki/)
 
-The ItemSets button and window are both draggable. You can move them around the screen to your liking. The window/button
+The Loadouts button and window are both draggable. You can move them around the screen to your liking. The window/button
 will remember their positions between sessions. CTRL + RightClick to drag.
+
+Personal loadouts require items to be equipped to be saved.
 
 <details>
 <summary><b>Installation Instructions</b></summary>
@@ -70,26 +72,26 @@ Notepad is not a good choice. If you use Notepad, you are making things harder o
 elements in things like Notepad++ or VSCode to make it easier to read. You can also use a YAML validator to make sure
 your YAML is valid. This one works [YAML Lint](http://www.yamllint.com/).
 
-The YAML file (`Azumatt.RapidLoadouts_ItemSets.yml`) that is created by the mod allows for configuration of ItemSets.
-The entries specify ItemSets (in game items, skills, effects) that can be obtained in the game for a specific price.
+The YAML file (`Azumatt.RapidLoadouts_Loadouts.yml`) that is created by the mod allows for configuration of Loadouts.
+The entries specify Loadouts (in game items, skills, effects) that can be obtained in the game for a specific price.
 
-Each ItemSet is represented by a YAML entry. The entry contains information about the items, skills, or effects that
+Each Loadout is represented by a YAML entry. The entry contains information about the items, skills, or effects that
 will be given to the player upon purchase, along with their respective properties such as quantity, quality, and price.
 
 ## General Structure of the YAML
 
-- `name`: This is the name of the ItemSet that will appear in-game. Make sure this is unique.
+- `name`: This is the name of the Loadout that will appear in-game. Make sure this is unique.
 
-- `items`: This is a list of items included in the ItemSet. Each item has several properties:
+- `items`: This is a list of items included in the Loadout. Each item has several properties:
     - `item`: The prefab name of the item.
     - `quality`: The quality level of the item.
-    - `stack`: The quantity of this item in the ItemSet.
+    - `stack`: The quantity of this item in the Loadout.
     - `use`: If true, the item will be automatically used (consumed/used/equipped) upon purchase.
     - `hotbarSlot`: The position in the player's hotbar where the item will be placed. If multiple items have the same
       slot, they will be added in the order they appear while swapping each other out in the hotbar. The last item added
       will be the one that wins the slot.
 
-- `skills`: This is a list of skills included in the ItemSet. Each skill has several
+- `skills`: This is a list of skills included in the Loadout. Each skill has several
   properties: `Note: This is not implemented for custom skills yet`
     - `skill`: The name of the skill.
     - `level`: The level of the skill that the player will receive.
@@ -105,17 +107,18 @@ will be given to the player upon purchase, along with their respective propertie
 
 - `dropCurrent`: If true, the player will drop their current items upon purchase. They will go into a tombstone.
 
-- `price`: The cost of the ItemSet in-game.
+- `price`: The cost of the Loadout in-game.
 
-- `costPrefab`: This specifies an item that will be used as an alternative form of payment. If present, the ItemSet can
+- `costPrefab`: This specifies an item that will be used as an alternative form of payment. If present, the Loadout can
   be bought with the specified item instead of the default currency found in the configuration file (
-  Section: `1 - General` Configuration: `ItemSetCostPrefab`).
+  Section: `1 - General` Configuration: `LoadoutCostPrefab`).
 
-## ItemSets
+## Loadouts
 
-The file contains several preconfigured ItemSets such as:
+The file contains several preconfigured Loadouts such as:
 
-1. "Give Hammer" – gives a hammer of quality 3, for the price of 10 Fine Wood.
+1. "Give Hammer" – gives a hammer of quality 3, for the price of 10 Fine Wood. Example of the requiredGlobalKey
+   property.
 
 2. "AzuMage" – provides a set of armor, a staff, and food items, sets all skills to level 100, and costs 60 Etir. It
    also drops the player's current items.
@@ -125,11 +128,11 @@ The file contains several preconfigured ItemSets such as:
 4. "Testing Pack" – grants a bronze sword and sets the skill levels of 'Swords' to 16 and 'Run' to 100, for the cost of
    100 Bronze.
 
-5. Several ItemSets provide status effects such as "Status Effect Test", "Goblin Shaman Shield", "Rested Buff level 1",
+5. Several Loadouts provide status effects such as "Status Effect Test", "Goblin Shaman Shield", "Rested Buff level 1",
    and "Corpse Run Buff", with varying costs.
 
-6. There are also ItemSets that boost the player's skill levels: "+10 To Skills", "+20 To Skills", and "Max Out Skills".
-   Each ItemSet boosts all skills by a certain amount and has its own cost.
+6. There are also Loadouts that boost the player's skill levels: "+10 To Skills", "+20 To Skills", and "Max Out Skills".
+   Each Loadout boosts all skills by a certain amount and has its own cost.
 
 Remember to edit the file carefully as incorrect or missing data could result in unexpected behavior or crashes in the
 game. Save a backup copy before making any changes.
@@ -200,7 +203,6 @@ game. Save a backup copy before making any changes.
   dropCurrent: true
   price: 50
   costPrefab: "Etir"
-  requiredGlobalKey: "defeated_bonemass"
 - name: "Potion Pack"
   items:
     - item: "MeadHealthMinor"
@@ -215,7 +217,7 @@ game. Save a backup copy before making any changes.
       hotbarSlot: 0
   dropCurrent: false
   price: 50
-- name: "Testing Pack"
+- name: "Testing Packs"
   items:
     - item: "SwordBronze"
       quality: 3
@@ -228,7 +230,7 @@ game. Save a backup copy before making any changes.
     - skill: "Run"
       level: 100
   dropCurrent: false
-  price: 100
+  price: 1000
   costPrefab: "Bronze"
 - name: "Status Effect Test"
   setEffect: "Potion_eitr_minor"
@@ -2766,6 +2768,551 @@ game. Save a backup copy before making any changes.
   costPrefab: Coins
   setEffect: Potion_eitr_minor
   setEffectAsGP: false
+- name: "Give Axe"
+  items:
+    - item: "AxeBlackMetal"
+      quality: 2
+      stack: 1
+      use: false
+      hotbarSlot: 2
+  dropCurrent: false
+  price: 15
+  costPrefab: "Iron"
+
+- name: "Hunter Pack"
+  items:
+    - item: "BowHuntsman"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArrowSilver"
+      quality: 1
+      stack: 100
+      use: false
+      hotbarSlot: 2
+    - item: "ArmorTrollLeatherChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorTrollLeatherLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Bows"
+      level: 50
+  dropCurrent: false
+  price: 75
+  costPrefab: "TrollHide"
+  requiredGlobalKey: "defeated_bonemass"
+
+- name: "Miner's Delight"
+  items:
+    - item: "PickaxeIron"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "MeadStaminaMedium"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorIronChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorIronLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Pickaxes"
+      level: 60
+  dropCurrent: false
+  price: 120
+  costPrefab: "Iron"
+
+- name: "Wizard's Kit"
+  items:
+    - item: "StaffLightning"
+      quality: 1
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArmorFenringChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorFenringLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "HelmetFenring"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "YggdrasilPorridge"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "All"
+      level: 80
+  dropCurrent: true
+  price: 150
+  costPrefab: "Etir"
+  setEffect: "Potion_eitr_minor"
+  setEffectAsGP: true
+
+- name: "Warrior's Arsenal"
+  items:
+    - item: "SwordIron"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ShieldBanded"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorIronChest"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorIronLegs"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "HelmetIron"
+      quality: 4
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "MeadHealthMajor"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Swords"
+      level: 100
+    - skill: "Blocking"
+      level: 100
+  dropCurrent: true
+  price: 200
+  costPrefab: "Iron"
+
+- name: "Builder's Pack"
+  items:
+    - item: "Hammer"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "Hoe"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "Cultivator"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "AxeIron"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "Wood"
+      quality: 1
+      stack: 200
+      use: false
+      hotbarSlot: 0
+  skills:
+    - skill: "WoodCutting"
+      level: 50
+  dropCurrent: false
+  price: 50
+  costPrefab: "FineWood"
+
+- name: "Explorer's Pack"
+  items:
+    - item: "Torch"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "CapeLox"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "ArmorLeatherLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 0
+    - item: "CookedDeerMeat"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 0
+  skills:
+    - skill: "Run"
+      level: 70
+    - skill: "Jump"
+      level: 70
+  dropCurrent: false
+  price: 100
+  costPrefab: "Silver"
+  setEffect: "Potion_eitr_minor"
+  setEffectAsGP: false
+- name: "Chef's Delight"
+  items:
+    - item: "CookedDeerMeat"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 2
+    - item: "CookedLoxMeat"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 3
+    - item: "TurnipStew"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 4
+    - item: "QueensJam"
+      quality: 1
+      stack: 20
+      use: true
+      hotbarSlot: 5
+    - item: "MeadTasty"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 6
+  dropCurrent: false
+  price: 60
+  costPrefab: "Honey"
+
+- name: "Blacksmith's Kit"
+  items:
+    - item: "Hammer"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "PickaxeBronze"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+  skills:
+    - skill: "Pickaxes"
+      level: 40
+  dropCurrent: false
+  price: 100
+  costPrefab: "Iron"
+
+- name: "Seafarer's Bundle"
+  items:
+    - item: "ArmorPaddedCuirass"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorPaddedGreaves"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "HelmetIron"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadFrostResist"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Swim"
+      level: 50
+  dropCurrent: false
+  price: 80
+  costPrefab: "FineWood"
+
+- name: "Rogue's Pack"
+  items:
+    - item: "KnifeBlackMetal"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "KnifeSilver"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorPaddedCuirass"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorPaddedGreaves"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "CapeTrollHide"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 5
+    - item: "MeadHealthMinor"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 6
+  skills:
+    - skill: "Knives"
+      level: 60
+  dropCurrent: true
+  price: 90
+  costPrefab: "Silver"
+
+- name: "Archer's Bundle"
+  items:
+    - item: "BowFineWood"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArrowFire"
+      quality: 1
+      stack: 100
+      use: true
+      hotbarSlot: 2
+    - item: "ArrowFrost"
+      quality: 1
+      stack: 100
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "ArmorLeatherLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Bows"
+      level: 75
+  dropCurrent: false
+  price: 85
+  costPrefab: "FineWood"
+
+- name: "Necromancer's Pack"
+  items:
+    - item: "StaffSkeleton"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "ArmorFenringChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorFenringLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "HelmetFenring"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadEitrLingering"
+      quality: 1
+      stack: 10
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "All"
+      level: 65
+  dropCurrent: true
+  price: 100
+  costPrefab: "Etir"
+
+- name: "Guardian's Gear"
+  items:
+    - item: "ShieldIronTower"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "MaceIron"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorIronChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorIronLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "HelmetIron"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 5
+    - item: "MeadHealthMedium"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 6
+  skills:
+    - skill: "Blocking"
+      level: 70
+    - skill: "Clubs"
+      level: 70
+  dropCurrent: true
+  price: 110
+  costPrefab: "Iron"
+
+- name: "Pathfinder Pack"
+  items:
+    - item: "Torch"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "CapeLox"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherLegs"
+      quality: 3
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadHealthMinor"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Run"
+      level: 60
+    - skill: "Sneak"
+      level: 60
+  dropCurrent: false
+  price: 75
+  costPrefab: "Silver"
+
+- name: "Fisherman's Friend"
+  items:
+    - item: "FishingRod"
+      quality: 1
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "FishingBait"
+      quality: 1
+      stack: 50
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+  skills:
+    - skill: "Fishing"
+      level: 50
+  dropCurrent: false
+  price: 60
+  costPrefab: "Silver"
+
+- name: "Defender's Pack"
+  items:
+    - item: "ShieldWood"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 1
+    - item: "Club"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 2
+    - item: "ArmorLeatherChest"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 3
+    - item: "ArmorLeatherLegs"
+      quality: 2
+      stack: 1
+      use: true
+      hotbarSlot: 4
+    - item: "MeadHealthMinor"
+      quality: 1
+      stack: 5
+      use: true
+      hotbarSlot: 5
+  skills:
+    - skill: "Blocking"
+      level: 50
+    - skill: "Clubs"
+      level: 50
+  dropCurrent: false
+  price: 70
+  costPrefab: "Bronze"
 
 
 ```
@@ -2773,6 +3320,7 @@ game. Save a backup copy before making any changes.
 </details>
 
 <details><summary><b>Images</b></summary>
+![](https://i.imgur.com/DVlScer.png)
 
 ![](https://i.imgur.com/esB6C22.png)
 
@@ -2801,5 +3349,5 @@ game. Save a backup copy before making any changes.
 
 For Questions or Comments, find me in the Odin Plus Team Discord or in mine:
 
-[![https://i.imgur.com/XXP6HCU.png](https://i.imgur.com/XXP6HCU.png)](https://discord.gg/Pb6bVMnFb2)
+[![https://i.imgur.com/XXP6HCU.png](https://i.imgur.com/XXP6HCU.png)](https://discord.gg/qhr2dWNEYq)
 <a href="https://discord.gg/pdHgy6Bsng"><img src="https://i.imgur.com/Xlcbmm9.png" href="https://discord.gg/pdHgy6Bsng" width="175" height="175"></a>

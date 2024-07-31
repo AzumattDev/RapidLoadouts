@@ -8,10 +8,10 @@ namespace RapidLoadouts.YAMLStuff;
 
 public static class ItemSetHelper
 {
-    public static void AddCreateItemSets(ItemSets? __instance)
+    public static void AddCreateLoadout(ItemSets? __instance)
     {
         if (__instance == null) return;
-        // Convert customSets to game's ItemSets
+        // Convert customSets to game's Loadout
         List<ItemSets.ItemSet> customSets = ItemSetHelper.ConvertToGameItemSets(RapidLoadoutsPlugin.RL_yamlData);
 
         // Create a dictionary for the fast lookup
@@ -30,11 +30,11 @@ public static class ItemSetHelper
         __instance.m_sets.AddRange(customSetDict.Values);
     }
 
-    public static List<ItemSets.ItemSet> ConvertToGameItemSets(List<ItemSet?> customItemSets)
+    public static List<ItemSets.ItemSet> ConvertToGameItemSets(List<ItemSet?> customLoadouts)
     {
-        List<ItemSets.ItemSet> gameItemSets = new List<ItemSets.ItemSet>();
+        List<ItemSets.ItemSet> gameLoadouts = new List<ItemSets.ItemSet>();
 
-        foreach (ItemSet? customSet in customItemSets)
+        foreach (ItemSet? customSet in customLoadouts)
         {
             if (customSet != null)
             {
@@ -70,11 +70,11 @@ public static class ItemSetHelper
                     gameSet.m_skills.Add(gameSkill);
                 }
 
-                gameItemSets.Add(gameSet);
+                gameLoadouts.Add(gameSet);
             }
         }
 
-        return gameItemSets;
+        return gameLoadouts;
     }
 
     internal static ItemDrop? ConvertToItemDrop(string itemName)
@@ -160,7 +160,7 @@ public static class ItemSetHelper
 
     internal static void SetAnyGuardianPower(string setEffect)
     {
-        RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Setting effect to {setEffect}");
+        RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug($"Setting effect to {setEffect}");
         Player.m_localPlayer.SetGuardianPower(setEffect);
         Player.m_localPlayer.m_guardianPowerCooldown = 0.0f;
     }

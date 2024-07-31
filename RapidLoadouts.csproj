@@ -115,8 +115,10 @@
         <Compile Include="LocalizationManager.cs"/>
         <Compile Include="Plugin.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="UI\ItemSetsButtonHolder.cs"/>
-        <Compile Include="UI\ItemSetGui.cs"/>
+        <Compile Include="UI\LoadoutsButtonHolder.cs" />
+        <Compile Include="UI\PurchasableLoadoutGui.cs" />
+        <Compile Include="UI\PersonalLoadoutGui.cs" />
+        <Compile Include="UI\PersonalItemSetGui_Backup.cs" />
         <Compile Include="UI\UIDragger.cs"/>
         <Compile Include="YAMLStuff\ItemSetHelper.cs"/>
         <Compile Include="YAMLStuff\RapidLoadoutModels.cs"/>
@@ -131,6 +133,7 @@
         </Content>
         <Content Include="LICENSE.txt"/>
         <Content Include="README.md"/>
+        <Content Include="Thunderstore\ModShowoff_2024-07-31 01-03-47.mp4" />
         <Content Include="Thunderstore\CHANGELOG.md"/>
         <Content Include="Thunderstore\icon.png"/>
         <Content Include="Thunderstore\manifest.json"/>

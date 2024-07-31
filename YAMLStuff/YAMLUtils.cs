@@ -33,7 +33,7 @@ public class YAMLUtils
         IDeserializer deserializer = new DeserializerBuilder().Build();
         RapidLoadoutsPlugin.RL_yamlData = deserializer.Deserialize<List<ItemSet>>(yamlInput)!;
         // log the yaml data
-        RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"yamlData:\n{yamlInput}");
+        RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug($"yamlData:\n{yamlInput}");
     }
     
     // Write the yaml data to the file
@@ -44,7 +44,7 @@ public class YAMLUtils
         File.WriteAllText(yamlPath, yamlOutput);
     }
 
-    internal void LoadCustomItemSets()
+    internal void LoadCustomLoadouts()
     {
         if (!File.Exists(RapidLoadoutsPlugin.yamlPath))
         {

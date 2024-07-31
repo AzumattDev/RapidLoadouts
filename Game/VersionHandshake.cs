@@ -15,7 +15,7 @@ namespace Recycle_N_Reclaim.GamePatches
         private static void Prefix(ZNetPeer peer, ref ZNet __instance)
         {
             // Register version check call
-            RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug("Registering version RPC handler");
+            RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug("Registering version RPC handler");
             peer.m_rpc.Register($"{RapidLoadoutsPlugin.ModName}_VersionCheck",
                 new Action<ZRpc, ZPackage>(RpcHandlers.RPC_Recycle_N_Reclaim_Version));
 

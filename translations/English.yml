@@ -1,5 +1,12 @@
 # Ready to use english translation file for the plugin
 # (for more information on LocalizationManager, see the LocalizationManager documentation https://github.com/blaxxun-boop/LocalizationManager#example-project).
-azu_rl_buyItemSet: "Buy Item Set"
+azu_rl_buyLoadout: "Buy Loadout"
+azu_rl_swapLoadout: "Swap Loadout"
+azu_rl_emptyItemSet: "Store Loadout"
 azu_rl_equipSelected: "Equip the selected loadout"
-azu_rl_itemSets: "Item Sets"
+azu_rl_loadouts: "Loadouts"
+azu_rl_loadout: "Loadout"
+azu_rl_loadouts_purchasable: "Purchasable"
+azu_rl_loadouts_personal: "Personal"
+azu_rl_loadouts_load: "Click to load this loadout"
+azu_rl_loadouts_empty: "This loadout is empty"

@@ -1,8 +1,8 @@
 {
   "name": "RapidLoadouts",
-  "version_number": "1.0.7",
+  "version_number": "1.0.8",
   "website_url": "https://github.com/AzumattDev/RapidLoadouts",
-  "description": "A mod that adds ItemSets to the player's inventory. Pre-configured sets that can be purchased. It's highly configurable. Use your imagination!",
+  "description": "A mod that adds Loadouts to the player's inventory. Pre-configured sets that can be purchased. It's highly configurable. Use your imagination!",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2202"
   ]

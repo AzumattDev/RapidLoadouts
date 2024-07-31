@@ -21,7 +21,7 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.7";
+        internal const string ModVersion = "1.0.8";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -31,7 +31,7 @@ namespace RapidLoadouts
 
         private readonly Harmony _harmony = new(ModGUID);
 
-        private ItemSetsButtonHolder _itemSetsButton = null!;
+        private LoadoutsButtonHolder _loadoutsButton = null!;
 
         public static readonly ManualLogSource RapidLoadoutsLogger = BepInEx.Logging.Logger.CreateLogSource(ModName);
 
@@ -77,7 +77,7 @@ namespace RapidLoadouts
 
         private void Start()
         {
-            _itemSetsButton = gameObject.AddComponent<ItemSetsButtonHolder>();
+            _loadoutsButton = gameObject.AddComponent<LoadoutsButtonHolder>();
             // If the chainloader has auga
             if (Chainloader.PluginInfos.ContainsKey("randyknapp.mods.auga"))
             {
@@ -151,7 +151,7 @@ namespace RapidLoadouts
             if (!File.Exists(ConfigFileFullPath)) return;
             try
             {
-                RapidLoadoutsLogger.LogDebug("ReadConfigValues called");
+                RapidLoadoutsLogger.LogDebugIfDebug("ReadConfigValues called");
                 Config.Reload();
             }
             catch
@@ -166,7 +166,7 @@ namespace RapidLoadouts
             if (!File.Exists(yamlPath)) return;
             try
             {
-                RapidLoadoutsLogger.LogDebug("ReadConfigValues called");
+                RapidLoadoutsLogger.LogDebugIfDebug("ReadConfigValues called");
                 AzuRL_yamlData.AssignLocalValue(File.ReadAllText(yamlPath));
             }
             catch
@@ -178,13 +178,13 @@ namespace RapidLoadouts
 
         private static void OnValChangedUpdate()
         {
-            RapidLoadoutsLogger.LogDebug("OnValChanged called");
+            RapidLoadoutsLogger.LogDebugIfDebug("OnValChanged called");
             try
             {
                 YAMLUtils.ReadYaml(AzuRL_yamlData.Value);
-                ItemSetHelper.AddCreateItemSets(ItemSets.instance != null ? ItemSets.instance : null);
+                ItemSetHelper.AddCreateLoadout(ItemSets.instance != null ? ItemSets.instance : null);
                 if (Player.m_localPlayer != null && ItemSets.instance != null)
-                    ItemSetGui.FillList();
+                    PurchasableLoadoutGui.FillList();
             }
             catch (Exception e)
             {
@@ -200,14 +200,9 @@ namespace RapidLoadouts
         public static ConfigEntry<Vector3> InventoryItemSetButtonPosition = null!;
         public static ConfigEntry<Vector3> ItemSetWindow = null!;
 
-        private ConfigEntry<T> config<T>(string group, string name, T value, ConfigDescription description,
-            bool synchronizedSetting = true)
+        private ConfigEntry<T> config<T>(string group, string name, T value, ConfigDescription description, bool synchronizedSetting = true)
         {
-            ConfigDescription extendedDescription =
-                new(
-                    description.Description +
-                    (synchronizedSetting ? " [Synced with Server]" : " [Not Synced with Server]"),
-                    description.AcceptableValues, description.Tags);
+            ConfigDescription extendedDescription = new(description.Description + (synchronizedSetting ? " [Synced with Server]" : " [Not Synced with Server]"), description.AcceptableValues, description.Tags);
             ConfigEntry<T> configEntry = Config.Bind(group, name, value, extendedDescription);
             //var configEntry = Config.Bind(group, name, value, description);
 
@@ -217,8 +212,7 @@ namespace RapidLoadouts
             return configEntry;
         }
 
-        private ConfigEntry<T> config<T>(string group, string name, T value, string description,
-            bool synchronizedSetting = true)
+        private ConfigEntry<T> config<T>(string group, string name, T value, string description, bool synchronizedSetting = true)
         {
             return config(group, name, value, new ConfigDescription(description), synchronizedSetting);
         }
@@ -243,6 +237,31 @@ namespace RapidLoadouts
 
         #endregion
     }
+
+    // Logger extensions
+    public static class LoggerExtensions
+    {
+        public static void LogDebugIfDebug(this ManualLogSource logger, string message)
+        {
+#if DEBUG
+            logger.LogDebugIfDebug(message);
+#endif
+        }
+
+        public static void LogErrorIfDebug(this ManualLogSource logger, string message)
+        {
+#if DEBUG
+            logger.LogError(message);
+#endif
+        }
+
+        public static void LogWarningIfDebug(this ManualLogSource logger, string message)
+        {
+#if DEBUG
+            logger.LogWarning(message);
+#endif
+        }
+    }
 #if DEBUG
     [HarmonyPatch(typeof(ItemSets), nameof(ItemSets.Awake))]
     static class ItemSetsAwakePatch
@@ -254,10 +273,10 @@ namespace RapidLoadouts
                 if (itemSet != null)
                 {
                     // Debug information for what is currently in the list and what is being considered for addition
-                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Attempting to add ItemSet {itemSet.m_name}");
+                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug($"Attempting to add ItemSet {itemSet.m_name}");
 
 
-                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebug($"Adding ItemSet {itemSet.m_name}");
+                    RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug($"Adding ItemSet {itemSet.m_name}");
 
                     var set = new ItemSet
                     {
