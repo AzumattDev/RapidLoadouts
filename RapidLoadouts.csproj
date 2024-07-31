@@ -118,7 +118,6 @@
         <Compile Include="UI\LoadoutsButtonHolder.cs" />
         <Compile Include="UI\PurchasableLoadoutGui.cs" />
         <Compile Include="UI\PersonalLoadoutGui.cs" />
-        <Compile Include="UI\PersonalItemSetGui_Backup.cs" />
         <Compile Include="UI\UIDragger.cs"/>
         <Compile Include="YAMLStuff\ItemSetHelper.cs"/>
         <Compile Include="YAMLStuff\RapidLoadoutModels.cs"/>

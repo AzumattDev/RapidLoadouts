@@ -61,7 +61,7 @@ public class PersonalLoadoutGui : MonoBehaviour
         if (m_listRoot != null)
             m_itemlistBaseSize = m_listRoot.rect.height;
         m_chooseButton.onClick = new Button.ButtonClickedEvent();
-        m_chooseButton.onClick.AddListener(OnChooseItemSet);
+        m_chooseButton.onClick.AddListener(OnChooseLoadout);
         /*m_saveButton.onClick = new Button.ButtonClickedEvent();
         m_saveButton.onClick.AddListener(() =>
         {
@@ -169,12 +169,12 @@ public class PersonalLoadoutGui : MonoBehaviour
 
     public static bool IsVisible() => (m_instance && m_rootPanel.activeSelf) || PanelActive;
 
-    public void OnChooseItemSet()
+    public void OnChooseLoadout()
     {
-        LoadSelectedItemSet();
+        LoadSelectedLoadout();
     }
 
-    public void LoadSelectedItemSet()
+    public void LoadSelectedLoadout()
     {
         if (string.IsNullOrWhiteSpace(m_selectedItem))
             return;
@@ -497,7 +497,7 @@ public class PersonalLoadoutGui : MonoBehaviour
             bool flag2 = player.GetInventory().HaveEmptySlot();
             m_chooseButton.interactable = flag2;
 
-            string buttonText = isLoadoutEmpty ? "$azu_rl_emptyItemSet" : "$azu_rl_swapLoadout";
+            string buttonText = isLoadoutEmpty ? "$azu_rl_emptyLoadout" : "$azu_rl_swapLoadout";
             m_chooseButton.transform.Find(RapidLoadoutsPlugin.HasAuga ? "Label" : "Text").GetComponent<TMP_Text>().text = Localization.instance.Localize(buttonText);
 
             component.m_text = !flag2 ? Localization.instance.Localize("$inventory_full") : "";

@@ -61,7 +61,7 @@ public class YAMLUtils
             List<ItemSets.ItemSet> customSets = deserializer.Deserialize<List<ItemSets.ItemSet>>(File.ReadAllText(RapidLoadoutsPlugin.yamlPath));
 
             // Assuming we have a way to add the new item sets
-            // AddItemSets(customSets);
+            // AddLoadouts(customSets);
         }
         catch (Exception e)
         {

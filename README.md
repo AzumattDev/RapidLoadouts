@@ -3320,6 +3320,7 @@ game. Save a backup copy before making any changes.
 </details>
 
 <details><summary><b>Images</b></summary>
+
 ![](https://i.imgur.com/DVlScer.png)
 
 ![](https://i.imgur.com/esB6C22.png)

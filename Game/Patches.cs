@@ -94,7 +94,7 @@ static class PlayerSpawnedPatch
         clonedRootPanel = newRootPanel;
         // Set the new root panel position to be middle of the screen
         newRootPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(550, 150);
-        newRootPanel.GetComponent<RectTransform>().localPosition = RapidLoadoutsPlugin.ItemSetWindow.Value;
+        newRootPanel.GetComponent<RectTransform>().localPosition = RapidLoadoutsPlugin.LoadoutWindow.Value;
 
         // Add the PurchasableLoadoutGui component to the newRootPanel
         PurchasableLoadoutGui itemsetGui = newRootPanel.AddComponent<PurchasableLoadoutGui>();
@@ -154,7 +154,7 @@ static class PlayerSpawnedPatch
 
         // Add UIDragger and event handler
         UIDragger dragger = newRootPanel.AddComponent<UIDragger>();
-        dragger.OnUIDropped += (source, position) => { RapidLoadoutsPlugin.ItemSetWindow.Value = position; };
+        dragger.OnUIDropped += (source, position) => { RapidLoadoutsPlugin.LoadoutWindow.Value = position; };
         RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug("PurchasableLoadoutGui created successfully");
     }
 

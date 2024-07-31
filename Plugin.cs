@@ -21,7 +21,7 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.8";
+        internal const string ModVersion = "1.0.9";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -37,7 +37,7 @@ namespace RapidLoadouts
 
         private static readonly ConfigSync ConfigSync = new(ModGUID) { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
 
-        internal static readonly string yamlFileName = SanitizeFileName($"{Author}.{ModName}_ItemSets.yml");
+        internal static readonly string yamlFileName = SanitizeFileName($"{Author}.{ModName}_Loadouts.yml");
 
         internal static readonly string yamlPath = Paths.ConfigPath + Path.DirectorySeparatorChar + yamlFileName;
         internal static readonly CustomSyncedValue<string> AzuRL_yamlData = new(ConfigSync, "AzuRL_yamlData", "");
@@ -57,9 +57,9 @@ namespace RapidLoadouts
             _serverConfigLocked = config("1 - General", "Lock Configuration", Toggle.On, "If on, the configuration is locked and can be changed by server admins only.");
             _ = ConfigSync.AddLockingConfigEntry(_serverConfigLocked);
 
-            itemSetCostPrefab = config("1 - General", "ItemSetCostPrefab", "Coins", "Default Currency. This is the fallback currency that will be used when buying ItemSets from the ItemSet Window.");
-            InventoryItemSetButtonPosition = config("2 - UI", "ItemSetButtonPosition", new Vector3(63.0f, -316.0f, -1.0f), "The last saved ItemSet Button's screen position.");
-            ItemSetWindow = config("2 - UI", "ItemSetWindow", new Vector3(428f, -276f, -1.0f), "The last saved ItemSet Window's screen position.");
+            loadoutCostPrefab = config("1 - General", "LoadoutCostPrefab", "Coins", "Default Currency. This is the fallback currency that will be used when buying Loadouts from the Loadout Window.");
+            InventoryLoadoutButtonPosition = config("2 - UI", "LoadoutButtonPosition", new Vector3(63.0f, -316.0f, -1.0f), "The last saved Loadout Button's screen position.");
+            LoadoutWindow = config("2 - UI", "LoadoutWindow", new Vector3(428f, -276f, -1.0f), "The last saved Loadout Window's screen position.");
 
 
             if (!File.Exists(yamlPath))
@@ -196,9 +196,9 @@ namespace RapidLoadouts
         #region ConfigOptions
 
         private static ConfigEntry<Toggle> _serverConfigLocked = null!;
-        public static ConfigEntry<string> itemSetCostPrefab = null!;
-        public static ConfigEntry<Vector3> InventoryItemSetButtonPosition = null!;
-        public static ConfigEntry<Vector3> ItemSetWindow = null!;
+        public static ConfigEntry<string> loadoutCostPrefab = null!;
+        public static ConfigEntry<Vector3> InventoryLoadoutButtonPosition = null!;
+        public static ConfigEntry<Vector3> LoadoutWindow = null!;
 
         private ConfigEntry<T> config<T>(string group, string name, T value, ConfigDescription description, bool synchronizedSetting = true)
         {

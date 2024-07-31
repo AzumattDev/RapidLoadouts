@@ -60,12 +60,12 @@ namespace RapidLoadouts.UI
             _textComponent = _itemSetsButton.GetComponentInChildren<TMP_Text>();
             _textComponent.text = Localization.instance.Localize("$azu_rl_loadouts");
             UIDragger? dragger = _itemSetsButton.gameObject.AddComponent<UIDragger>();
-            dragger.OnUIDropped += (source, position) => { RapidLoadoutsPlugin.InventoryItemSetButtonPosition.Value = position; };
+            dragger.OnUIDropped += (source, position) => { RapidLoadoutsPlugin.InventoryLoadoutButtonPosition.Value = position; };
         }
 
         private Vector3 GetSavedButtonPosition()
         {
-            Vector3 newLocalPosition = RapidLoadoutsPlugin.InventoryItemSetButtonPosition.Value;
+            Vector3 newLocalPosition = RapidLoadoutsPlugin.InventoryLoadoutButtonPosition.Value;
             return newLocalPosition;
         }
     }

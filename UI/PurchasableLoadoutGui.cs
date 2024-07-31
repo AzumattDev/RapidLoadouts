@@ -53,7 +53,7 @@ public class PurchasableLoadoutGui : MonoBehaviour
         if (m_listRoot != null)
             m_itemlistBaseSize = m_listRoot.rect.height;
         m_chooseButton.onClick = new Button.ButtonClickedEvent();
-        m_chooseButton.onClick.AddListener(OnChooseItemSet);
+        m_chooseButton.onClick.AddListener(OnChooseLoadout);
         m_sellButton.onClick = new Button.ButtonClickedEvent();
         m_topicText.text = Localization.instance.Localize("$azu_rl_loadouts_purchasable");
     }
@@ -116,7 +116,7 @@ public class PurchasableLoadoutGui : MonoBehaviour
         }
         catch
         {
-            m_coinPrefab = ObjectDB.instance.GetItemPrefab(RapidLoadoutsPlugin.itemSetCostPrefab.Value).GetComponent<ItemDrop>();
+            m_coinPrefab = ObjectDB.instance.GetItemPrefab(RapidLoadoutsPlugin.loadoutCostPrefab.Value).GetComponent<ItemDrop>();
         }
 
         m_coinIcon.sprite = m_coinPrefab.m_itemData.GetIcon();
@@ -169,9 +169,9 @@ public class PurchasableLoadoutGui : MonoBehaviour
 
     public static bool IsVisible() => (m_instance && m_rootPanel.activeSelf) || PanelActive;
 
-    public void OnChooseItemSet() => BuySelectedItemSet();
+    public void OnChooseLoadout() => BuySelectedLoadout();
 
-    public void BuySelectedItemSet()
+    public void BuySelectedLoadout()
     {
         if (m_selectedItem == null || !CanAfford(m_selectedItem))
             return;
@@ -312,7 +312,7 @@ public class PurchasableLoadoutGui : MonoBehaviour
             }
             catch
             {
-                Utils.FindChild(element.transform, "coin icon").GetComponent<Image>().sprite = ObjectDB.instance.GetItemPrefab(RapidLoadoutsPlugin.itemSetCostPrefab.Value).GetComponent<ItemDrop>().m_itemData.GetIcon();
+                Utils.FindChild(element.transform, "coin icon").GetComponent<Image>().sprite = ObjectDB.instance.GetItemPrefab(RapidLoadoutsPlugin.loadoutCostPrefab.Value).GetComponent<ItemDrop>().m_itemData.GetIcon();
             }
 
             if (!flag)
