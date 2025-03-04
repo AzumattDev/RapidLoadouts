@@ -90,11 +90,13 @@ static class PlayerSpawnedPatch
         // Clone the root panel
         GameObject newRootPanel = Object.Instantiate(rootPanel, InventoryGui.instance.m_player.transform, false);
         newRootPanel.name = "AzuRapidLoadoutsRootPanel";
+        newRootPanel.GetComponent<Canvas>().sortingOrder = 699;
         Utils.FindChild(newRootPanel.transform, "border (1)").gameObject.GetComponent<Image>().sprite = player.m_inventory.GetBkg();
         clonedRootPanel = newRootPanel;
         // Set the new root panel position to be middle of the screen
-        newRootPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(550, 150);
-        newRootPanel.GetComponent<RectTransform>().localPosition = RapidLoadoutsPlugin.LoadoutWindow.Value;
+        newRootPanel.GetComponent<RectTransform>().anchoredPosition = RapidLoadoutsPlugin.LoadoutWindow.Value;
+        //newRootPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(1475, -300);
+        //newRootPanel.GetComponent<RectTransform>().localPosition = RapidLoadoutsPlugin.LoadoutWindow.Value;
 
         // Add the PurchasableLoadoutGui component to the newRootPanel
         PurchasableLoadoutGui itemsetGui = newRootPanel.AddComponent<PurchasableLoadoutGui>();
@@ -164,6 +166,10 @@ static class PlayerSpawnedPatch
         GameObject secondPanel = Object.Instantiate(newRootPanel, newRootPanel.transform);
         secondPanel.name = "AzuRapidLoadoutsSecondPanel";
         // Destroy the UIDragger component
+        GameObject.DestroyImmediate(secondPanel.GetComponent<CanvasScaler>());
+        GameObject.DestroyImmediate(secondPanel.GetComponent<GraphicRaycaster>());
+        GameObject.DestroyImmediate(secondPanel.GetComponent<Canvas>());
+        GameObject.DestroyImmediate(secondPanel.GetComponent<GuiScaler>());
         GameObject.DestroyImmediate(secondPanel.GetComponent<UIDragger>());
         GameObject.DestroyImmediate(secondPanel.GetComponent<PurchasableLoadoutGui>());
         PersonalLoadoutGui personalLoadoutGui = newRootPanel.AddComponent<PersonalLoadoutGui>();

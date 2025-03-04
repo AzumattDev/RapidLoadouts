@@ -21,7 +21,7 @@ namespace RapidLoadouts
     public class RapidLoadoutsPlugin : BaseUnityPlugin
     {
         internal const string ModName = "RapidLoadouts";
-        internal const string ModVersion = "1.0.9";
+        internal const string ModVersion = "1.0.10";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -58,8 +58,8 @@ namespace RapidLoadouts
             _ = ConfigSync.AddLockingConfigEntry(_serverConfigLocked);
 
             loadoutCostPrefab = config("1 - General", "LoadoutCostPrefab", "Coins", "Default Currency. This is the fallback currency that will be used when buying Loadouts from the Loadout Window.");
-            InventoryLoadoutButtonPosition = config("2 - UI", "LoadoutButtonPosition", new Vector3(63.0f, -316.0f, -1.0f), "The last saved Loadout Button's screen position.");
-            LoadoutWindow = config("2 - UI", "LoadoutWindow", new Vector3(428f, -276f, -1.0f), "The last saved Loadout Window's screen position.");
+            InventoryLoadoutButtonPosition = config("2 - UI", "LoadoutButtonPosition", new Vector3(63.0f, -316.0f, -1.0f), new ConfigDescription("The last saved Loadout Button's screen position.This does not live update, it's used for saving the position.", null, new ConfigurationManagerAttributes() {Browsable = false}));
+            LoadoutWindow = config("2 - UI", "LoadoutWindow", new Vector3(952f, -391f, -1.0f), new ConfigDescription("The last saved Loadout Window's screen position. This does not live update, it's used for saving the position.", null, new ConfigurationManagerAttributes() {Browsable = false}));
 
 
             if (!File.Exists(yamlPath))
