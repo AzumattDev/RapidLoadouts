@@ -178,7 +178,10 @@ static class PlayerSpawnedPatch
             RapidLoadoutsPlugin.RapidLoadoutsLogger.LogDebugIfDebug("PurchasableLoadoutGui component not found on newRootPanel");
             return;
         }
-
+        
+        // Reset scale of the secondPanel to be 1
+        secondPanel.transform.localScale = Vector3.one;
+        
         PersonalLoadoutGui.m_rootPanel = Utils.FindChild(secondPanel.transform, "Store").gameObject;
         personalLoadoutGui.m_chooseButton = Utils.FindChild(secondPanel.transform, "BuyButton").GetComponent<Button>();
         personalLoadoutGui.m_chooseButton.onClick.RemoveAllListeners();
